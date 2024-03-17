@@ -35,7 +35,7 @@ By considering the input as the following three-dimensional matrix, we observe t
 <p align="center">
 <img width="400" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/9f1d7279-e2e2-479c-ba94-a6af634f5678">
 
-<img width="370" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/e3c48285-63ff-4f61-aad9-ac24e298dffc">
+<img width="360" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/e3c48285-63ff-4f61-aad9-ac24e298dffc">
 </p>
 
 ```shell
@@ -63,21 +63,21 @@ The execution for all heads ranging from 1 to 7 will be performed in parallel.
 <img width="540" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/11e17130-b8ec-45fb-bc66-b7cff9d1ee9f">
 </p>
 <p align="center">
-<em>head1. theta1 will be loaded and utilized across all batches from 1 to 8</em>
+<em>For head1, theta1 will be loaded and utilized across all batches from 1 to 8</em>
 </p>
 
 <p align="center">
 <img width="490" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/d92f7939-6b09-4d8a-aabd-b64c8e72d1c4">
 </p>
 <p align="center">
-<em>head2. theta2 will be loaded and utilized across all batches from 1 to 8</em>
+<em>For head2, theta2 will be loaded and utilized across all batches from 1 to 8</em>
 </p>
 
 <p align="center">
 <img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/a5159a60-3a7d-4870-ac3f-f3431d1224fe">
 </p>
 <p align="center">
-<em>head8. theta8 will be loaded and utilized across all batches from 1 to 8</em>
+<em>For head8, theta8 will be loaded and utilized across all batches from 1 to 8</em>
 </p>
 
 
@@ -124,13 +124,15 @@ To ensure correctness, the following test parameters are utilized.
 ## Performance Benchmarking
 
 The following system was utilized for benchmarking:
-  * Ubuntu 22.04, PyTorch 2.2.1 with CUDA 12.1, Python 3.9
+  * Ubuntu 22.04
   * NVIDIA GPU RTX2070 Super (GDDR6 8GB, 2560 CUDA cores)
+  * transformer-engine==1.5.0.dev
+  * PyTorch 2.2.1 with CUDA 12.1, Python 3.9
 
 The below parameters are used:
   * x_axis: ```[128 * i for i in range(2, 32)]```
   * y_axis: throughput ```GB/s```
-  * hidden_size(=head_dim): ```128```
+  * hidden_size (=head_dim): ```128```
   * batch_size: ```[1, 2, 4, 8]```
   * head_num: ```64```
 
@@ -173,13 +175,12 @@ conda env create -f environment.yml -p /home/<user>/anaconda3/envs/<envname>
 ```
 
 ## Important
-Also, please note that you should install transformer-engine separately by using the below
+Also, please note that you should install ```transformer-engine``` separately by using the below;
 ```bash
 pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable
 ```
 
-```enviroment.yaml``` does not include the transformer engine package
-
+The included ```enviroment.yaml``` does not include the transformer engine package.
 I used the transformer engine package ```transformer-engine==1.5.0.dev0+a38b291``` which I installed manually from the source due to the freezing issue on my system with buidling wheels.
 
 

@@ -67,14 +67,14 @@ The execution for all heads ranging from 1 to 7 will be performed in parallel.
 </p>
 
 <p align="center">
-<img width="499" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/d92f7939-6b09-4d8a-aabd-b64c8e72d1c4">
+<img width="490" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/d92f7939-6b09-4d8a-aabd-b64c8e72d1c4">
 </p>
 <p align="center">
 <em>head2. theta2 will be loaded and utilized across all batches from 1 to 8</em>
 </p>
 
 <p align="center">
-<img width="507" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/a5159a60-3a7d-4870-ac3f-f3431d1224fe">
+<img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/a5159a60-3a7d-4870-ac3f-f3431d1224fe">
 </p>
 <p align="center">
 <em>head8. theta8 will be loaded and utilized across all batches from 1 to 8</em>
@@ -83,7 +83,7 @@ The execution for all heads ranging from 1 to 7 will be performed in parallel.
 
 In addition to the heads, the sequence lengths ```m = 1``` and ```m = 2``` will also be executed in parallel.
 <p align="center">
-<img width="516" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1f077b04-8206-4e49-8e24-6645df501936">
+<img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1f077b04-8206-4e49-8e24-6645df501936">
 </p>
 
 

@@ -30,12 +30,12 @@ First of all, in the attention in TransformerEngine, the input tensor shapes are
 [seq_len, batch_num, head_num, head_dim] = input.shape
 ```
 
+### Grid
 By considering the input as the following three-dimensional matrix, we observe that parallelization can be achieved across ```sequence length``` and ```head number```. 
 
 <p align="center">
-<img width="400" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/9f1d7279-e2e2-479c-ba94-a6af634f5678">
+<img width="1290" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/0d976f9f-e033-4599-8302-7df604c2f57e">
 
-<img width="360" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/e3c48285-63ff-4f61-aad9-ac24e298dffc">
 </p>
 
 ```shell
@@ -49,6 +49,7 @@ pid_seq = tl.program_id(axis=0)
 pid_head = tl.program_id(axis=1)
 ```
 
+### Optimization
 Each head within batches shares the same theta, as illustrated below. This indicates that theta_0 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
 
 <p align="center">

@@ -13,15 +13,13 @@ Triton is an open-source programming model developed by OpenAI that empowers dev
 
 The details about Triton can be found in [Triton official documentation](https://triton-lang.org).
 
-# ⭐ Implementations
+# ⭐ Implementation
 
 The kernel implementation is aimed at efficiently executing the computation of RoPE. The computation is demonstrated below from [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864).
 
 <p align="center">
 <img width="472" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/58587da5-ad16-4cbf-8545-850de97f7a13">
 </p>
-
-## Details
 
 In essence, the primary concept of the implementation is to parallelize across sequence length and head indexes while minimizing data load by reusing the loaded frequency data throughout the batches for each head. Thus, the greater the number of batches, the greater the performance enhancement we can expect. This will be particularly advantageous for data centers where support for multiple batches is essential.
 
@@ -49,12 +47,13 @@ pid_seq = tl.program_id(axis=0)
 pid_head = tl.program_id(axis=1)
 ```
 
-### Optimization
 Each head within batches shares the same theta, as illustrated below. This indicates that theta_0 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
 
 <p align="center">
 <img width="762" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/5b229177-355c-4ed3-b183-345864ae08b6">
 </p>
+
+### Optimization
 
 To minimize data loading, upon loading frequency data (cos, sin), we use the data to perform calculations with elements across all batches of each head. For a more comprehensive understanding, please consult the figures provided below. 
 

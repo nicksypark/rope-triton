@@ -7,71 +7,68 @@ from typing import Tuple, Union
 @triton.jit
 def rope_kernel_fw(input_ptr, in_seq_len_stride, in_batch_stride,
                    output_ptr, cos_ptr, sin_ptr, cos_stride, sin_stride,
-                   seq_len, batch_num, head_dim,
-                   BLOCK_SIZE: tl.constexpr):
+                   seq_len, head_dim,
+                   BLOCK_SIZE: tl.constexpr, BATCH_NUM: tl.constexpr):
     pid_seq = tl.program_id(axis=0)
     pid_head = tl.program_id(axis=1)
 
     head_dim_offset = tl.arange(0, BLOCK_SIZE)  # [0:head_dim/2]
     head_dim_mid = head_dim // 2
-    mask = head_dim_offset < head_dim_mid
 
     cos_offset = (pid_seq % seq_len) * cos_stride + head_dim_offset
     sin_offset = (pid_seq % seq_len) * sin_stride + head_dim_offset
 
-    cos = tl.load(cos_ptr + cos_offset, mask=mask, other=0.0)
-    sin = tl.load(sin_ptr + sin_offset, mask=mask, other=0.0)
+    cos = tl.load(cos_ptr + cos_offset)
+    sin = tl.load(sin_ptr + sin_offset)
 
-    for batch_idx in range(0, batch_num):
+    for batch_idx in tl.static_range(0, BATCH_NUM):
         x1_offset = pid_seq * in_seq_len_stride + batch_idx * \
             in_batch_stride + pid_head * head_dim + head_dim_offset
         x2_offset = pid_seq * in_seq_len_stride + batch_idx * in_batch_stride + \
             pid_head * head_dim + head_dim_mid + head_dim_offset
 
-        x1 = tl.load(input_ptr + x1_offset, mask=mask, other=0.0)
-        x2 = tl.load(input_ptr + x2_offset, mask=mask, other=0.0)
+        x1 = tl.load(input_ptr + x1_offset)
+        x2 = tl.load(input_ptr + x2_offset)
 
         y1 = x1 * cos - x2 * sin
         y2 = x1 * sin + x2 * cos
 
-        tl.store(output_ptr + x1_offset, y1, mask=mask)
-        tl.store(output_ptr + x2_offset, y2, mask=mask)
+        tl.store(output_ptr + x1_offset, y1)
+        tl.store(output_ptr + x2_offset, y2)
     return
 
 
 @triton.jit
 def rope_kernel_bw(input_ptr, in_seq_len_stride, in_batch_stride,
                    output_ptr, cos_ptr, sin_ptr, cos_stride, sin_stride,
-                   seq_len, batch_num, head_dim,
-                   BLOCK_SIZE: tl.constexpr):
+                   seq_len, head_dim,
+                   BLOCK_SIZE: tl.constexpr, BATCH_NUM: tl.constexpr):
     pid_seq = tl.program_id(axis=0)
     pid_head = tl.program_id(axis=1)
 
     head_dim_offset = tl.arange(0, BLOCK_SIZE)  # [0:head_dim/2]
     head_dim_mid = head_dim // 2
-    mask = head_dim_offset < head_dim_mid
 
     cos_offset = (pid_seq % seq_len) * cos_stride + head_dim_offset
     sin_offset = (pid_seq % seq_len) * sin_stride + head_dim_offset
 
-    cos = tl.load(cos_ptr + cos_offset, mask=mask, other=0.0)
-    sin = tl.load(sin_ptr + sin_offset, mask=mask, other=0.0)
+    cos = tl.load(cos_ptr + cos_offset)
+    sin = tl.load(sin_ptr + sin_offset)
 
-    for batch_idx in range(0, batch_num):
+    for batch_idx in tl.static_range(0, BATCH_NUM):
         x1_offset = pid_seq * in_seq_len_stride + batch_idx * \
             in_batch_stride + pid_head * head_dim + head_dim_offset
         x2_offset = pid_seq * in_seq_len_stride + batch_idx * in_batch_stride + \
             pid_head * head_dim + head_dim_mid + head_dim_offset
 
-        x1 = tl.load(input_ptr + x1_offset, mask=mask, other=0.0)
-        x2 = tl.load(input_ptr + x2_offset, mask=mask, other=0.0)
+        x1 = tl.load(input_ptr + x1_offset)
+        x2 = tl.load(input_ptr + x2_offset)
 
         y1 = x1 * cos - x2 * -sin
         y2 = x1 * -sin + x2 * cos
 
-        tl.store(output_ptr + x1_offset, y1, mask=mask)
-        tl.store(output_ptr + x2_offset, y2, mask=mask)
-
+        tl.store(output_ptr + x1_offset, y1)
+        tl.store(output_ptr + x2_offset, y2)
     return
 
 
@@ -109,9 +106,9 @@ class FusedRoPEFucnTriton(torch.autograd.Function):
                              cos.stride(0),
                              sin.stride(0),
                              seq_len,
-                             batch_num,
                              head_dim,
-                             BLOCK_SIZE)
+                             BLOCK_SIZE,
+                             batch_num)
 
         ctx.cos = cos
         ctx.sin = sin
@@ -146,9 +143,9 @@ class FusedRoPEFucnTriton(torch.autograd.Function):
                              ctx.cos.stride(0),
                              ctx.sin.stride(0),
                              seq_len,
-                             batch_num,
                              head_dim,
-                             ctx.BLOCK_SIZE)
+                             ctx.BLOCK_SIZE,
+                             batch_num)
 
         if ctx.tensor_format == "bshd":
             return grad_input.transpose(0, 1), None, None, None, None

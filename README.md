@@ -89,18 +89,18 @@ In addition to the heads, the sequence lengths ```m = 1``` and ```m = 2``` will 
 
 The below code snippet demonstrates the implementation. 
 ```shell
-cos = tl.load(cos_ptr + cos_offset, mask=mask, other=0.0)
-sin = tl.load(sin_ptr + sin_offset, mask=mask, other=0.0)
+cos = tl.load(cos_ptr + cos_offset)
+sin = tl.load(sin_ptr + sin_offset)
 
-for batch_idx in range(0, batch_num):
-    x1 = tl.load(input_ptr + x1_offset, mask=mask, other=0.0)
-    x2 = tl.load(input_ptr + x2_offset, mask=mask, other=0.0)
+for batch_idx in tl.static_range(0, BATCH_NUM):
+    x1 = tl.load(input_ptr + x1_offset)
+    x2 = tl.load(input_ptr + x2_offset)
 
     y1 = x1 * cos - x2 * sin
     y2 = x1 * sin + x2 * cos
 
-    tl.store(output_ptr + x1_offset, y1, mask=mask)
-    tl.store(output_ptr + x2_offset, y2, mask=mask)
+    tl.store(output_ptr + x1_offset, y1)
+    tl.store(output_ptr + x2_offset, y2)
 ```
 
 

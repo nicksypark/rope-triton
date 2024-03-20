@@ -127,7 +127,7 @@ The following system was utilized for benchmarking:
   * Ubuntu 22.04
   * NVIDIA GPU RTX2070 Super (GDDR6 8GB, 2560 CUDA cores)
   * transformer-engine==1.5.0.dev
-  * PyTorch 2.2.1 with CUDA 12.1, Python 3.9
+  * PyTorch 2.2.1 with CUDA 12.1, Python 3.9.18
 
 The below parameters are used:
   * x_axis: ```[128 * i for i in range(2, 32)]```
@@ -159,7 +159,7 @@ For a batch size of 8, the Triton kernel implementation demonstrates an enhancem
 ![image](https://github.com/nicksypark/rope-triton/assets/17171917/93d9a4ac-efc3-4372-bb95-abc38b380ced)
 
 ## Limitation:
-Currently, the implementation does not support the ```rotary_percent < 1.0``` test parameter, which applies RoPE only to partial elements, as well as ```transpose=[2,3]```, which alters the underlying memory layout. 
+Currently, the implementation does not support the ```rotary_percent < 1.0``` test parameter, which applies RoPE only to partial elements, as well as ```transpose=[2,3]```, which alters the underlying memory layout. ```sbhd``` and ```bshd``` input tensor formats are only supported.
 
 
 

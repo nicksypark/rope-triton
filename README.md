@@ -1,4 +1,4 @@
-# Rotary Position Embedding (RoPE) in Triton
+# Rotary Position Embedding (RoPE) optimization in Triton
 
 This is the implementation example of Rotary Position Embedding (RoPE) kernel using Triton. 
 

@@ -167,9 +167,8 @@ Currently, the implementation does not support the ```rotary_percent < 1.0``` te
 ## Prerequisites
 
 On Ubuntu, to run this RoPE implementation and testing, you need to install specific packages.
-Please take note of the environments used and you can create your own based on ```environment.yaml```;
+Please take note of the environments used and you can create your own based on ```environment.yml```;
 
-You can also create your own environment;
 ```bash
 conda env create -f environment.yml -p /home/<user>/anaconda3/envs/<envname>
 ```
@@ -180,7 +179,7 @@ Also, please note that you should install ```transformer-engine``` separately by
 pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable
 ```
 
-The included ```enviroment.yaml``` does not include the transformer engine package.
+The included ```enviroment.yml``` does not include the transformer engine package.
 I used the transformer engine package ```transformer-engine==1.5.0.dev0+a38b291``` which I installed manually from the source due to the freezing issue on my system with buidling wheels.
 
 

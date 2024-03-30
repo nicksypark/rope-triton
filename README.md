@@ -145,7 +145,7 @@ Note: The below is the illustration of the Transformer Engine implementation
 
 The CUDA performance converges to ```~250 GB/s``` due to the memory bandwidth bottleneck. Overall, the Triton kernel implementation shows superior performance.
 
-Note: head_dim (128) * head_num (64) = (8K) elements per token, 4MB L2 cache / 8K = 512 
+Note: head_dim (128) * head_num (64) = (8K) elements per token, 4MB L2 cache / (8K * 4byte) = 128 
 
 
 #### Batch 1

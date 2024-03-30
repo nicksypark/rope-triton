@@ -124,7 +124,7 @@ To ensure correctness, the following test parameters are utilized.
 
 The following system was utilized for benchmarking:
   * Ubuntu 22.04
-  * NVIDIA GPU RTX2070 Super (GDDR6 8GB, 2560 CUDA cores)
+  * NVIDIA GPU RTX2070 Super (GDDR6 8GB, 4 MB L2 cache, 2560 CUDA cores)
   * transformer-engine==1.5.0.dev
   * PyTorch 2.2.1 with CUDA 12.1, Python 3.9.18
 

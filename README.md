@@ -91,7 +91,7 @@ In addition to the heads, the sequence lengths ```m = 1``` and ```m = 2``` will 
 </p>
 
 <p align="center">
-<img width="692" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/04ae2983-9ac6-4023-8cb4-e46c9af30dbd">
+<img width="705" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/21c9fdfc-700b-4991-b0dc-04541a9adc55">
 </p>
 
 The below code snippet demonstrates the implementation. 

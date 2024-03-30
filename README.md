@@ -68,7 +68,7 @@ Each head within batches shares the same theta, as illustrated below. This indic
 
 To minimize data loading, upon loading frequency data (cos, sin), we use the data to perform calculations with elements across all batches of each head. For a more comprehensive understanding, please consult the figures provided below. 
 
-The execution for all heads ranging from 1 to 7 will be performed in parallel.
+The execution for all heads ranging from 1 to 8 will be performed in parallel.
 
 <p align="center">
 <img width="1000" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/88b47723-4466-4d94-a9ee-3b5efab52f13">

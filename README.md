@@ -42,7 +42,7 @@ By considering the input as the following three-dimensional matrix, we observe t
 </p>
 
 <p align="center">
-<img width="680" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1e45f118-f2b5-44b6-b522-0cf33b48c39b">
+<img width="726" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/355a9231-cd84-42ae-a5f5-ddae055ddfba">
 </p>
 
 ```shell

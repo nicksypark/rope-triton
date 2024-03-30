@@ -18,7 +18,11 @@ The details about Triton can be found in [Triton official documentation](https:/
 The kernel implementation is aimed at efficiently executing the computation of RoPE. The computation is demonstrated below from [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864).
 
 <p align="center">
-<img width="472" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/58587da5-ad16-4cbf-8545-850de97f7a13">
+<img width="450" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/fe8cbd99-9e40-4cd8-be91-a082831f285d">
+
+</p>
+<p align="center">
+<img width="450" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/58587da5-ad16-4cbf-8545-850de97f7a13">
 </p>
 
 In essence, the primary concept of the implementation is to parallelize across sequence length and head indexes while minimizing data load by reusing the loaded frequency data throughout the batches for each head. Thus, the greater the number of batches, the greater the performance enhancement we can expect. This will be particularly advantageous for data centers where support for multiple batches is essential.

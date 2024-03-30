@@ -143,6 +143,14 @@ The below parameters are used:
   * batch_size: ```[1, 2, 4, 8]```
   * head_num: ```64```
 
+
+
+Note: The below is the illustration of the Transformer Engine implementation
+
+<p align="center">
+<img width="748" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/68718c3c-08fd-481c-81ad-3da8bdbbb510">
+</p>
+
 The CUDA performance converges to ```~250 GB/s``` due to the memory bandwidth bottleneck. Overall, the Triton kernel implementation shows superior performance.
 
 #### Batch 1

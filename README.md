@@ -79,7 +79,7 @@ The execution for all heads ranging from 1 to 7 will be performed in parallel.
 
 In addition to the heads, the sequence index of 1 and 2 will also be executed in parallel.
 <p align="center">
-<img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1f077b04-8206-4e49-8e24-6645df501936">
+<img width="350" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/b0e5108e-5a22-4666-bba9-8a26b16295b7">
 </p>
 
 <p align="center">

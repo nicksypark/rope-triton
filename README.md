@@ -36,6 +36,10 @@ By considering the input as the following three-dimensional matrix, we observe t
 
 </p>
 
+<p align="center">
+<img width="680" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1e45f118-f2b5-44b6-b522-0cf33b48c39b">
+</p>
+
 ```shell
 # Setting grid
 grid = (seq_len, head_num)
@@ -86,6 +90,9 @@ In addition to the heads, the sequence lengths ```m = 1``` and ```m = 2``` will 
 <img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1f077b04-8206-4e49-8e24-6645df501936">
 </p>
 
+<p align="center">
+<img width="692" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/04ae2983-9ac6-4023-8cb4-e46c9af30dbd">
+</p>
 
 The below code snippet demonstrates the implementation. 
 ```shell

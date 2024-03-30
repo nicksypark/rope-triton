@@ -55,13 +55,15 @@ pid_seq = tl.program_id(axis=0)
 pid_head = tl.program_id(axis=1)
 ```
 
+### Optimization
+
 Each head within batches shares the same theta, as illustrated below. This indicates that theta_0 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
 
 <p align="center">
 <img width="762" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/5b229177-355c-4ed3-b183-345864ae08b6">
 </p>
 
-### Optimization
+
 
 To minimize data loading, upon loading frequency data (cos, sin), we use the data to perform calculations with elements across all batches of each head. For a more comprehensive understanding, please consult the figures provided below. 
 

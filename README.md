@@ -58,7 +58,7 @@ pid_head = tl.program_id(axis=1)
 
 ### Optimization
 
-Each head within batches shares the same theta, as illustrated below. This indicates that theta_0 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
+Each head within batches shares the same theta, as illustrated below. This indicates that theta_1 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
 
 <p align="center">
 <img width="760" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/87104d9a-9f8d-451f-9d9d-9f48d67cca65">

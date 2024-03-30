@@ -83,7 +83,7 @@ In addition to the heads, the sequence index of 1 to 8 will also be executed in 
 </p>
 
 <p align="center">
-<img width="705" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/21c9fdfc-700b-4991-b0dc-04541a9adc55">
+<img width="400" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/0d138f0a-551d-4cc6-862f-dd7806c6c9ec">
 </p>
 
 The below code snippet demonstrates the implementation. 

@@ -36,7 +36,8 @@ First of all, in the attention in TransformerEngine, the input tensor shapes are
 By considering the input as the following three-dimensional matrix, we observe that parallelization can be achieved across ```sequence length``` and ```head number```. 
 
 <p align="center">
-<img width="1290" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/0d976f9f-e033-4599-8302-7df604c2f57e">
+<img width="861" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/75b1d785-2020-4b08-ae01-8360edf1c5f9">
+
 
 </p>
 
@@ -60,7 +61,7 @@ pid_head = tl.program_id(axis=1)
 Each head within batches shares the same theta, as illustrated below. This indicates that theta_0 can be shared across all batches of head 1. (Subsequently, for the computations, each head is divided in half to facilitate the subsequent calculations.)
 
 <p align="center">
-<img width="762" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/5b229177-355c-4ed3-b183-345864ae08b6">
+<img width="760" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/87104d9a-9f8d-451f-9d9d-9f48d67cca65">
 </p>
 
 
@@ -70,28 +71,13 @@ To minimize data loading, upon loading frequency data (cos, sin), we use the dat
 The execution for all heads ranging from 1 to 7 will be performed in parallel.
 
 <p align="center">
-<img width="540" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/11e17130-b8ec-45fb-bc66-b7cff9d1ee9f">
-</p>
-<p align="center">
-<em>For head1, theta1 will be loaded and utilized across all batches from 1 to 8</em>
-</p>
-
-<p align="center">
-<img width="490" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/d92f7939-6b09-4d8a-aabd-b64c8e72d1c4">
-</p>
-<p align="center">
-<em>For head2, theta2 will be loaded and utilized across all batches from 1 to 8</em>
-</p>
-
-<p align="center">
-<img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/a5159a60-3a7d-4870-ac3f-f3431d1224fe">
-</p>
-<p align="center">
-<em>For head8, theta8 will be loaded and utilized across all batches from 1 to 8</em>
+<img width="1000" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/88b47723-4466-4d94-a9ee-3b5efab52f13">
 </p>
 
 
-In addition to the heads, the sequence lengths ```m = 1``` and ```m = 2``` will also be executed in parallel.
+
+
+In addition to the heads, the sequence index of 1 and 2 will also be executed in parallel.
 <p align="center">
 <img width="500" alt="image" src="https://github.com/nicksypark/rope-triton/assets/17171917/1f077b04-8206-4e49-8e24-6645df501936">
 </p>
